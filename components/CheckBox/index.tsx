@@ -39,9 +39,6 @@ export const CheckBoxTypeOfPassword: FC<CheckBoxTypeOfPasswordProps> = ({
           </Checkbox>
         ))}
       </CheckboxGroup>
-      <p className="text-default-500 text-small">
-        Selected: {passwordOptions.join(",")}
-      </p>
     </div>
   );
 };

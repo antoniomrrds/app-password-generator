@@ -21,7 +21,7 @@ export default function DefaultLayout({
         <Link
           isExternal
           className="flex items-center gap-1 text-current"
-          href={siteConfig.links.github}
+          href={siteConfig.links.mySite}
           title="antonio marcos"
         >
           <span className="text-pink-700">© 2024 Antologic</span>

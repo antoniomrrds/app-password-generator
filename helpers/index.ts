@@ -9,28 +9,40 @@ export const generateRandomString = (
   length: number,
   passwordOptions: string[],
 ): string => {
+  if (length <= 0) {
+    throw new Error("O comprimento da senha deve ser maior que zero.");
+  }
+
+  if (passwordOptions.length === 0) {
+    throw new Error("Nenhuma opção de senha foi selecionada.");
+  }
+
   let characters = "";
 
+  const optionMap: Record<string, string> = {
+    [TypeOfPassword.UppercaseLetters]: ALPHABET_UPPER_CASE,
+    [TypeOfPassword.LowercaseLetters]: ALPHABET_LOWER_CASE,
+    [TypeOfPassword.Numbers]: NUMBERS,
+    [TypeOfPassword.SpecialCharacters]: SPECIAL_CHARACTERS,
+  };
+
   passwordOptions.forEach((option) => {
-    switch (Number(option)) {
-      case TypeOfPassword.UppercaseLetters:
-        characters += ALPHABET_UPPER_CASE;
-        break;
-      case TypeOfPassword.LowercaseLetters:
-        characters += ALPHABET_LOWER_CASE;
-        break;
-      case TypeOfPassword.Numbers:
-        characters += NUMBERS;
-        break;
-      case TypeOfPassword.SpecialCharacters:
-        characters += SPECIAL_CHARACTERS;
-        break;
+    const charactersForOption = optionMap[option];
+
+    if (charactersForOption) {
+      characters += charactersForOption;
+    } else {
+      alert("Opção de senha inválida: ${option}");
     }
   });
 
+  if (!characters) {
+    throw new Error("Nenhum tipo válido de caractere foi selecionado.");
+  }
+
   let result = "";
 
-  for (let i = 1; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
 

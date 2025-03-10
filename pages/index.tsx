@@ -3,7 +3,7 @@ import { button as buttonStyles } from "@heroui/theme";
 import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { Slider } from "@heroui/slider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDisclosure } from "@heroui/modal";
 import { Snippet } from "@heroui/snippet";
 
@@ -28,11 +28,15 @@ export default function IndexPage() {
       .split(","),
   ]);
 
-  useEffect(() => {
+  const generatePassword = useCallback(() => {
     const pass = generateRandomString(passwordLength, passwordOptions);
 
     setPassword(pass);
-  }, [passwordLength]);
+  }, [passwordLength, passwordOptions]);
+
+  useEffect(() => {
+    generatePassword();
+  }, [generatePassword]);
 
   const copyPassword = () => {
     navigator.clipboard.writeText(password || "");
@@ -41,7 +45,7 @@ export default function IndexPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4   h-full">
+      <section className="flex flex-col items-center justify-center gap-4 h-full">
         <div className="inline-block max-w-xl text-center justify-center">
           <span className={title()}>Gerador de &nbsp;</span>
           <span className={title({ color: "violet" })}>
@@ -72,6 +76,7 @@ export default function IndexPage() {
             }}
             color="secondary"
             size="lg"
+            symbol="🔑"
             variant="shadow"
             onCopy={() => copyPassword()}
           >
@@ -85,7 +90,9 @@ export default function IndexPage() {
               setPasswordOptions={setPasswordOptions}
             />
             <Slider
+              defaultChecked
               className="max-w-md m-auto"
+              defaultValue={passwordLength}
               getValue={(pass) => `${pass} `}
               label="Tamanho da senha"
               maxValue={60}
@@ -100,22 +107,11 @@ export default function IndexPage() {
               <Button
                 color="primary"
                 variant="shadow"
-                onPress={() => {
-                  const pass = generateRandomString(
-                    passwordLength,
-                    passwordOptions,
-                  );
-
-                  setPassword(pass);
-                }}
+                onPress={generatePassword}
               >
                 gerar senha
               </Button>
-              <Button
-                color="secondary"
-                variant="shadow"
-                onPress={() => copyPassword()}
-              >
+              <Button color="secondary" variant="shadow" onPress={copyPassword}>
                 copiar senha
               </Button>
             </div>

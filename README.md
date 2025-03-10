@@ -1,14 +1,17 @@
-# Next.js & HeroUI Template
+# App Password Generator
+![Captura de tela 2025-03-10 143917](https://github.com/user-attachments/assets/0e38ba2d-333e-4d4e-9bd9-82c0ca9cea2f)
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+App Password Generator é uma ferramenta intuitiva e de fácil utilização para criar senhas aleatórias e fortes. Desenvolvido com a moderna biblioteca HeroUI, o aplicativo permite aos usuários gerar senhas seguras personalizando o comprimento da senha e tipos de caracteres (como letras maiúsculas, minúsculas, números e caracteres especiais). Além disso, ele oferece recursos como cópia rápida para a área de transferência e uma interface amigável e responsiva, ideal para proteger suas contas online com senhas robustas e únicas.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
+Recursos principais:
 
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
+- Geração de senhas seguras com personalização de opções (letras, números, símbolos).
+- Controle total do comprimento da senha (de 1 a 60 caracteres).
+- Cópia da senha gerada com um simples clique.
+- Interface responsiva e fácil de usar com HeroUI para uma experiência de usuário moderna.
+Com App Password Generator, você pode proteger sua segurança online com facilidade e confiança. Ideal para quem busca senhas fortes para diferentes plataformas e quer manter a simplicidade no processo de criação.
 
-## Technologies Used
+## Stack utilizada
 
 - [Next.js 14](https://nextjs.org/docs/getting-started)
 - [HeroUI](https://heroui.com)
@@ -18,19 +21,30 @@ This is a template for creating applications using Next.js 14 (pages directory) 
 - [Framer Motion](https://www.framer.com/motion)
 - [next-themes](https://github.com/pacocoursey/next-themes)
 
-## How to Use
 
-To create a new project based on this template using `create-next-app`, run the following command:
+
+## Instalação
+
+Baixe o projeto 
+````bash
+git clone https://github.com/antoniomrrds/app-password-generator.git
+````
+
+Entre na pasta
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
+cd ./app-password-generator
 ```
+    
 
-### Install dependencies
+
+
+### Instale as dependencias
 
 You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
 
 ```bash
+
 npm install
 ```
 
@@ -40,16 +54,7 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://portfolioamrrds.vercel.app/)
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).

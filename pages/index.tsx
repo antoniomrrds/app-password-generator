@@ -1,41 +1,59 @@
 import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
 import { button as buttonStyles } from "@heroui/theme";
+import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
+import { Button } from "@heroui/button";
+import { Slider } from "@heroui/slider";
+import { useEffect, useState } from "react";
+import { useDisclosure } from "@heroui/modal";
+import { Snippet } from "@heroui/snippet";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
+import { CheckBoxTypeOfPassword } from "@/components/CheckBox";
+import { generateRandomString } from "@/helpers";
+import { options } from "@/components/CheckBox/types";
+import { PasswordCopyModal } from "@/components/Modal";
 
 export default function IndexPage() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [password, setPassword] = useState<string>("");
+  const [passwordLength, setPasswordLength] = useState<number>(12);
+  const [passwordOptions, setPasswordOptions] = useState<string[]>([
+    ...options
+      .map((option) => option.value)
+      .toString()
+      .split(","),
+  ]);
+
+  useEffect(() => {
+    const pass = generateRandomString(passwordLength, passwordOptions);
+
+    setPassword(pass);
+  }, [passwordLength]);
+
+  const copyPassword = () => {
+    navigator.clipboard.writeText(password || "");
+    onOpen();
+  };
+
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-4   h-full">
         <div className="inline-block max-w-xl text-center justify-center">
-          <span className={title()}>Make&nbsp;</span>
-          <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-          <br />
-          <span className={title()}>
-            websites regardless of your design experience.
+          <span className={title()}>Gerador de &nbsp;</span>
+          <span className={title({ color: "violet" })}>
+            Senhas Aleatórias&nbsp;
           </span>
+          <br />
           <div className={subtitle({ class: "mt-4" })}>
-            Beautiful, fast and modern React UI library.
+            Crie senhas fortes e seguras para proteger suas contas online.
           </div>
         </div>
 
         <div className="flex gap-3">
-          <Link
-            isExternal
-            className={buttonStyles({
-              color: "primary",
-              radius: "full",
-              variant: "shadow",
-            })}
-            href={siteConfig.links.docs}
-          >
-            Documentation
-          </Link>
           <Link
             isExternal
             className={buttonStyles({ variant: "bordered", radius: "full" })}
@@ -46,14 +64,68 @@ export default function IndexPage() {
           </Link>
         </div>
 
-        <div className="mt-8">
-          <Snippet hideCopyButton hideSymbol variant="bordered">
-            <span>
-              Get started by editing{" "}
-              <Code color="primary">pages/index.tsx</Code>
-            </span>
+        <Card className="max-w-[800px] w-full p-4">
+          <Snippet
+            classNames={{
+              base: "text-center d-flex justify-center items-center",
+              pre: " text-ellipsis truncate",
+            }}
+            color="secondary"
+            size="lg"
+            variant="shadow"
+            onCopy={() => copyPassword()}
+          >
+            {password}
           </Snippet>
-        </div>
+
+          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+            <CheckBoxTypeOfPassword
+              options={options}
+              passwordOptions={passwordOptions}
+              setPasswordOptions={setPasswordOptions}
+            />
+            <Slider
+              className="max-w-md m-auto"
+              getValue={(pass) => `${pass} `}
+              label="Tamanho da senha"
+              maxValue={60}
+              minValue={1}
+              size="md"
+              onChange={(value) => setPasswordLength(value as number)}
+            />
+          </CardHeader>
+          <CardBody className="overflow-visible py-2" />
+          <CardFooter>
+            <div className="flex gap-4 items-center m-auto">
+              <Button
+                color="primary"
+                variant="shadow"
+                onPress={() => {
+                  const pass = generateRandomString(
+                    passwordLength,
+                    passwordOptions,
+                  );
+
+                  setPassword(pass);
+                }}
+              >
+                gerar senha
+              </Button>
+              <Button
+                color="secondary"
+                variant="shadow"
+                onPress={() => copyPassword()}
+              >
+                copiar senha
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+        <PasswordCopyModal
+          isOpen={isOpen}
+          password={password}
+          onClose={onClose}
+        />
       </section>
     </DefaultLayout>
   );

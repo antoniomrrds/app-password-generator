@@ -1,6 +1,6 @@
 # App Password Generator
-link para o site app-password-generator-xi.vercel.app
-- [demonstração site hospedado](https://app-password-generator-xi.vercel.app/)
+link para o site hospedado :
+- [app-password-generator](https://app-password-generator-xi.vercel.app/)
 
 ![Captura de tela 2025-03-10 143917](https://github.com/user-attachments/assets/0e38ba2d-333e-4d4e-9bd9-82c0ca9cea2f)
 
